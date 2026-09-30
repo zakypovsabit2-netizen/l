@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Викторина по первоисточнику: Повесть о Петре и Февронии Муромских</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            -webkit-tap-highlight-color: transparent;
+        }
+        button {
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .font-serif-title {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .gold-text {
+            color: #fbbf24;
+        }
+        .correct-btn {
+            background-color: rgba(16, 185, 129, 0.25) !important;
+            border-color: #10b981 !important;
+            color: #34d399 !important;
+        }
+        .wrong-btn {
+            background-color: rgba(239, 68, 68, 0.25) !important;
+            border-color: #ef4444 !important;
+            color: #fca5a5 !important;
+        }
+    </style>
+</head>
+<body class="text-slate-100 flex flex-col justify-between min-h-screen p-3 sm:p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="max-w-4xl mx-auto w-full flex justify-between items-center py-3 mb-4 md:mb-6 border-b border-slate-700/60">
+        <div class="flex items-center space-x-2 sm:space-x-3">
+            <span class="text-2xl sm:text-3xl">📜</span>
+            <div>
+                <h1 class="font-serif-title text-xl sm:text-2xl md:text-3xl font-bold gold-text leading-tight">Древнерусская словесность</h1>
+                <p class="text-[10px] sm:text-xs text-slate-400">По первоисточнику Ермолая-Еразма (XVI век)</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-1.5 sm:space-x-2 bg-amber-950/50 border border-amber-600/40 px-2.5 py-1 rounded-full">
+            <span class="text-amber-400 text-xs sm:text-sm font-semibold">30 вопросов</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto w-full my-auto">
+        
+        <!-- START SCREEN -->
+        <div id="start-screen" class="glass-card rounded-2xl p-5 sm:p-8 md:p-10 text-center shadow-2xl relative overflow-hidden">
+            <div class="inline-block p-3 sm:p-4 bg-amber-500/10 rounded-full mb-3 sm:mb-4 border border-amber-500/20">
+                <span class="text-4xl sm:text-5xl">🏰</span>
+            </div>
+            <h2 class="font-serif-title text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 gold-text">Викторина по памятнику XVI века</h2>
+            <p class="text-slate-300 text-sm sm:text-base md:text-lg mb-6 leading-relaxed max-w-2xl mx-auto">
+                Проверьте знание оригинала <span class="text-amber-400 font-semibold">«Повести о Петре и Февронии Муромских»</span>. Вопросы составлены строго по аутентичному тексту, его фольклорным загадкам, богословским мотивам и литературным деталям.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left mb-6 sm:mb-8 max-w-xl mx-auto">
+                <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50 flex items-center space-x-3">
+                    <span class="text-xl sm:text-2xl">📚</span>
+                    <div>
+                        <div class="text-[10px] sm:text-xs text-slate-400">Объем</div>
+                        <div class="font-bold text-xs sm:text-sm text-slate-200">30 вопросов</div>
+                    </div>
+                </div>
+                <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50 flex items-center space-x-3">
+                    <span class="text-xl sm:text-2xl">🎯</span>
+                    <div>
+                        <div class="text-[10px] sm:text-xs text-slate-400">Источник</div>
+                        <div class="font-bold text-xs sm:text-sm text-amber-400">Текст XVI века</div>
+                    </div>
+                </div>
+                <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/50 flex items-center space-x-3">
+                    <span class="text-xl sm:text-2xl">🔍</span>
+                    <div>
+                        <div class="text-[10px] sm:text-xs text-slate-400">Разбор</div>
+                        <div class="font-bold text-xs sm:text-sm text-slate-200">Цитаты и факты</div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="startQuiz()" class="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 active:scale-95 text-slate-950 font-bold rounded-xl text-base sm:text-lg shadow-lg transition-all duration-200">
+                Начать чтение и тест
+            </button>
+        </div>
+
+        <!-- QUIZ SCREEN -->
+        <div id="quiz-screen" class="hidden glass-card rounded-2xl p-4 sm:p-6 md:p-8 shadow-2xl relative">
+            <div class="mb-4 sm:mb-6">
+                <div class="flex justify-between items-center mb-2 text-xs sm:text-sm font-medium">
+                    <span id="question-number" class="gold-text">Вопрос 1 из 30</span>
+                    <span id="score-counter" class="text-slate-400">Счет: <strong id="current-score" class="text-slate-200">0</strong></span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 sm:h-2.5 rounded-full overflow-hidden border border-slate-700">
+                    <div id="progress-bar" class="bg-gradient-to-r from-amber-500 to-amber-300 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <div id="question-container" class="mb-4 sm:mb-6">
+                <h3 id="question-text" class="text-base sm:text-lg md:text-xl font-semibold text-slate-100 leading-snug mb-4 sm:mb-6">
+                    Текст вопроса...
+                </h3>
+
+                <div id="options-container" class="space-y-2.5 sm:space-y-3">
+                    <!-- Dynamic Options -->
+                </div>
+            </div>
+
+            <!-- Commentary / Explanation -->
+            <div id="explanation-box" class="hidden mt-4 sm:mt-6 p-3.5 sm:p-4 rounded-xl bg-slate-900/90 border border-amber-500/30 text-xs sm:text-sm leading-relaxed">
+                <div class="font-semibold text-amber-400 mb-1 flex items-center space-x-2">
+                    <span>📖</span>
+                    <span>Справка к первоисточнику:</span>
+                </div>
+                <p id="explanation-text" class="text-slate-300">Пояснение...</p>
+            </div>
+
+            <div class="mt-4 sm:mt-6 flex justify-end">
+                <button id="next-btn" onclick="nextQuestion()" class="w-full sm:w-auto px-6 py-3.5 bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold rounded-xl shadow-md transition-all text-sm sm:text-base">
+                    Следующий вопрос →
+                </button>
+            </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div id="result-screen" class="hidden glass-card rounded-2xl p-6 md:p-10 text-center shadow-2xl">
+            <div class="inline-block p-4 bg-amber-500/10 rounded-full mb-4 border border-amber-500/20">
+                <span id="result-emoji" class="text-5xl">🏆</span>
+            </div>
+            <h2 class="font-serif-title text-3xl md:text-4xl font-bold mb-2 gold-text">Тестирование завершено</h2>
+            <p id="result-title" class="text-xl font-semibold text-slate-200 mb-6">Ваш титул: Знаток древнерусской словесности</p>
+
+            <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-800 max-w-md mx-auto mb-8">
+                <div class="text-sm text-slate-400 mb-1">Правильных ответов</div>
+                <div class="text-4xl font-extrabold gold-text mb-2">
+                    <span id="final-score">0</span> / 30
+                </div>
+                <div id="percentage-text" class="text-xs text-slate-400">Успешность: 0%</div>
+            </div>
+
+            <p id="result-description" class="text-slate-300 text-sm leading-relaxed max-w-lg mx-auto mb-8">
+                Описание результата...
+            </p>
+
+            <button onclick="restartQuiz()" class="px-8 py-3.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-bold rounded-xl shadow-lg transition-all">
+                Пройти тест заново
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-4xl mx-auto w-full text-center py-4 border-t border-slate-800 text-xs text-slate-500 mt-6">
+        Викторина по древнерусскому литературному памятнику XVI века «Повесть о Петре и Февронии Муромских»
+    </footer>
+
+    <script>
+        const questions = [
+            {
+                question: "Кто является автором оригинальной «Повести о Петре и Февронии Муромских», написанной в XVI веке?",
+                options: [
+                    "Ермолай-Еразм (публицист и писатель эпохи Ивана Грозного)",
+                    "Митрополит Иларион",
+                    "Нестор Летописец",
+                    "Аввакум Петров"
+                ],
+                correct: 0,
+                explanation: "Произведение написано писателем-публицистом XVI века Ермолаем-Еразмом по поручению митрополита Макария к церковному собору 1547 года."
+            },
+            {
+                question: "По чьему церковному поручению и к какому событию создавалось это произведение?",
+                options: [
+                    "По поручению митрополита Макария к собору 1547 года о канонизации святых",
+                    "По указу Ивана III в честь присоединения Новогорода",
+                    "По заказу Муромского епископа к освящению собора",
+                    "По просьбе боярина Тучкова к династическому браку"
+                ],
+                correct: 0,
+                explanation: "Митрополит Макарий собирал сведения о местных святых для их общероссийской канонизации на Макарьевском соборе 1547 года."
+            },
+            {
+                question: "В каком облике лукавый змей прилетал к жене муромского князя Павла?",
+                options: [
+                    "Принимая облик самого князя Павла",
+                    "В виде огненного дракона с крыльями",
+                    "В виде странствующего инока",
+                    "Принимая вид прекрасного юноши-воина"
+                ],
+                correct: 0,
+                explanation: "Текст гласит, что змей прельщал княгиню и являлся ей в естестве своего естества, а посторонним людям казался самим князем Павлом."
+            },
+            {
+                question: "Как княгине удалось узнать секрет погибели змея?",
+                options: [
+                    "Она льстивыми речами выведала у змея, от чего ему суждено умереть",
+                    "Ей рассказала об этом вещая дева Феврония",
+                    "Тайна была записана на старинном свитке в алтаре",
+                    "Князь Павел победил змея во сне с помощью молитвы"
+                ],
+                correct: 0,
+                explanation: "Княгиня по совету мужа схитрила: обходительно расспросила змея, и тот признался: «Смерть моя — от Петрова плеча и от Агрикова меча»."
+            },
+            {
+                question: "Где именно князь Пётр нашел Агриков меч, способный поразить змея?",
+                options: [
+                    "В Крестовоздвиженском монастыре, в щели стены между керамидами (кирпичами)",
+                    "На дне реки Оки близ Мурома",
+                    "В подземелье муромского княжеского терема",
+                    "В лесу у подножия старого дуба"
+                ],
+                correct: 0,
+                explanation: "Отрок-юноша привел Петра в женский Крестовоздвиженский монастырь, где между керамидами в алтарной стене лежал скрытый Агриков меч."
+            },
+            {
+                question: "Что произошло с Петром после того, как он поразил змея Агриковым мечом?",
+                options: [
+                    "Кровь змея окропила Петра, и его тело покрылось струпьями и язвами",
+                    "Пётр на три года потерял зрение",
+                    "Пётр впал в глубокий беспамятный сон",
+                    "Меч рассыпался в пыль, а Пётр потерял слух"
+                ],
+                correct: 0,
+                explanation: "Умирающий змей затрепетал и окропил Петра своей ядовитой кровью, отчего тот тяжело заболел и покрылся струпьями."
+            },
+            {
+                question: "В какой земле и в каком селе жила дева Феврония?",
+                options: [
+                    "В Рязанской земле, в селе Ласково",
+                    "В Владимирской земле, в селе Боголюбово",
+                    "В Муромской земле, в селе Карачарово",
+                    "В Новгородской земле, в селе Городище"
+                ],
+                correct: 0,
+                explanation: "Посланники Петра отправились за лекарями в Рязанскую землю и пришли в село Ласково, где встретили Февронию."
+            },
+            {
+                question: "Каким промыслом/занятием добывали себе пропитание отец и брат Февронии?",
+                options: [
+                    "Они были древолазами (бортниками) и собирали дикий мёд в лесу",
+                    "Они были кузнецами и ковали оружие",
+                    "Они были рыбаками на Оке",
+                    "Они были пахарями и гончарами"
+                ],
+                correct: 0,
+                explanation: "Феврония сказала иносказательно, что родители и брат пошли «через слезы искать смерть», то есть добывать мёд на высоких деревьях."
+            },
+            {
+                question: "Какую иносказательную загадку о «глазах дома» загадала Феврония юноше-посланнику?",
+                options: [
+                    "«Плохо дому без ушей, а горнице без глаз» (имея в виду собаку)",
+                    "«Дом без окон — что слепец без очей»",
+                    "«Окна терема — глаза матери»",
+                    "«Печь в доме — светлое око»"
+                ],
+                correct: 0,
+                explanation: "Феврония сказала: «Нехорошо дому без ушей, а терему без глаз», пояснив, что собака в доме — это «уши и глаза», предупреждающие о гостях."
+            },
+            {
+                question: "Что означали слова Февронии о том, что её отец и мать «пошли плакать взаймы»?",
+                options: [
+                    "Они пошли на похороны (оплакивать умершего, чтобы потом оплакали их)",
+                    "Они пошли просить деньги в долг у соседей",
+                    "Они пошли платить дань княжеским биричам",
+                    "Они пошли в храм молиться о здравии"
+                ],
+                correct: 0,
+                explanation: "Феврония пояснила: родители пошли на погребение, где плачут над чужим мертвецом, чтобы и над ними потом плакали."
+            },
+            {
+                question: "Какое условие исцеления поставила Феврония Петру через посланника?",
+                options: [
+                    "«Если я не стану ему женой, то не подобает мне и лечить его»",
+                    "Чтобы князь отдал половину Муромского богатства бедным",
+                    "Чтобы князь построил храм в её родном селе",
+                    "Чтобы князь освободил всех крестьян от дани"
+                ],
+                correct: 0,
+                explanation: "Феврония проявила мудрость и духовное прозрение, заявив: «Если я не стану супругой ему, то не сродно мне лечить его»."
+            },
+            {
+                question: "Чем Феврония велела Петру помазать тело в бане для исцеления?",
+                options: [
+                    "Хлебным заквасом (закваской), освященной дуновением",
+                    "Целебным елеем из иерусалимского древа",
+                    "Отваром из полевых трав и воска",
+                    "Родниковой водой с серебряной пылью"
+                ],
+                correct: 0,
+                explanation: "Она дунула на небольшую сосудицу с хлебной закваской и велела Петру вытопить баню и помазать этим составом все язвы."
+            },
+            {
+                question: "Какую одну важную деталь велела оставить Феврония при смазывании тела Петра и почему?",
+                options: [
+                    "Оставить неизлеченным один струп (язву) в знак искушения за возможную неверность",
+                    "Не мазать темя головы для сохранения памяти",
+                    "Оставить несмазанной правую ладонь для меча",
+                    "Не помазывать стопы ног для смирения"
+                ],
+                correct: 0,
+                explanation: "Феврония велела оставить один струп непомазанным, предугадывая, что князь из гордости захочет нарушить обещание жениться."
+            },
+            {
+                question: "Какое хитрое задание дал Пётр Февронии, чтобы проверить её мудрость перед свадьбой?",
+                options: [
+                    "Прислал пучок льна и велел из него соткать сорочку, портки и полотенце за время бани",
+                    "Велел из одного зерна пшеницы вырастить сноп к утру",
+                    "Попросил принести воду в решете",
+                    "Заставил сшить кафтан из золотых нитей без иголки"
+                ],
+                correct: 0,
+                explanation: "Пётр передал ей пучок льна, потребовав сделать из него полный комплект одежды, пока он находится в бане."
+            },
+            {
+                question: "Каковой была ответная загадка-требование Февронии на задание с льном?",
+                options: [
+                    "Она прислала обрубок полена и попросила князя сделать из него ткацкий станок за то же время",
+                    "Она попросила князя выковать иголку из капли росы",
+                    "Она попросила его измерить шагами ширину реки Оки",
+                    "Она велела ему высушить озеро для льняного поля"
+                ],
+                correct: 0,
+                explanation: "Феврония передала Петру отщепленный чурбанчик дров и попросила смастерить из него станок, пока она чешет лён."
+            },
+            {
+                question: "Почему болезнь Петра возобновилась после его отъезда из Ласково?",
+                options: [
+                    "Он не сдержал данного слова и не взял Февронию в жены из-за её простородства",
+                    "Он случайно прикоснулся к мечу Агрика",
+                    "Его отравили Муромские бояре",
+                    "Он вступил в бой с остатками войска змея"
+                ],
+                correct: 0,
+                explanation: "Пётр погнушался её происхождением и уехал в Муром с подарками, но из оставшегося струпа болезнь снова расплодилась по всему телу."
+            },
+            {
+                question: "Почему бояре Муромские воспротивились княгине Февронии, когда Пётр вокняжился?",
+                options: [
+                    "Боярские жены не хотели, чтобы им повелевала крестьянка",
+                    "Феврония отказалась принять православное крещение",
+                    "Она тратила всю городскую казну на нищих",
+                    "Бояре хотели посадить на престол своего сородича"
+                ],
+                correct: 0,
+                explanation: "Бояре пришли к Петру со гневом, говоря, что жены их не хотят, чтобы Феврония господствовала над ними из-за своего простого происхождения."
+            },
+            {
+                question: "Что ответила Феврония боярам, когда те предложили ей взять любое богатство и уйти из города?",
+                options: [
+                    "Она попросила дать ей только то, что она назовет — своего мужа Петра",
+                    "Она потребовала половину золота из городской казны",
+                    "Она попросила отдать ей село Ласково с окрестностями",
+                    "Она согласилась и ушла пешком без условий"
+                ],
+                correct: 0,
+                explanation: "Феврония сказала боярам: «Ничего иного не прошу, только супруга моего Петра!». Бояре обрадовались, надеясь поставить нового князя."
+            },
+            {
+                question: "Какое чудо совершила Феврония на корабле с обрубками деревьев (колышками) во время изгнания?",
+                options: [
+                    "Благословила сухие колышки для костра, и наутро они превратились в большие зеленые деревья с ветвями",
+                    "Превратила деревянные весла в золотые",
+                    "Заставила сухие щепки плыть против течения",
+                    "Сделела из сухого полена хлебы"
+                ],
+                correct: 0,
+                explanation: "Повар водрузил сухие колышки, чтобы повесить котлы, а Феврония благословила их, и к утру из них выросли великие деревья с листвой."
+            },
+            {
+                question: "Какое событие случилось в Муроме сразу после того, как Пётр и Феврония покинули город?",
+                options: [
+                    "Бояре устроили кровавую междоусобицу за престол и перебили друг друга",
+                    "Город сожгли соседние князья",
+                    "В Муроме начался великий мор и голод",
+                    "На город напало войско змеиных сородичей"
+                ],
+                correct: 0,
+                explanation: "Каждый из бояр захотел стать властителем, они обнажили мечи и начали убивать друг друга, после чего уцелевшие умолили Петра вернуться."
+            },
+            {
+                question: "Как Феврония на корабле обличила помысел походивствовавшего человека (жениха/пассажира)?",
+                options: [
+                    "Велела ему зачерпнуть и испить воды с левого и правого борта и спросила, одинакова ли вода",
+                    "Прочла его мысли с помощью духовного прозрения и назвала его имя",
+                    "Попросила его взглянуть в зеркальную гладь реки",
+                    "Указала ему на его жену, стоящую у кормы"
+                ],
+                correct: 0,
+                explanation: "Феврония велела мужчине зачерпнуть воды с двух сторон судна. Когда тот подтвердил, что вода одинакова, она сказала: «Так и естество женское одинаково»."
+            },
+            {
+                question: "Под какими иноческими (монашескими) именами приняли постриг Пётр и Феврония перед смертью?",
+                options: [
+                    "Давид и Евфросиния",
+                    "Димитрий и Евдокия",
+                    "Даниил и Феврония",
+                    "Дионисий и Елизавета"
+                ],
+                correct: 0,
+                explanation: "Готовясь к отшествию к Богу, Пётр приняла постриг с именем Давид, а Феврония — с именем Евфросиния."
+            },
+            {
+                question: "Какое святое рукоделие вышивала Феврония (Евфросиния) в монастыре перед самой кончиной?",
+                options: [
+                    "Воздух (покров) со святыми ликами для соборного храма Богородицы",
+                    "Священническое облачение для Муромского епископа",
+                    "Плащаницу Спасителя",
+                    "Пелену под икону Богородицы"
+                ],
+                correct: 0,
+                explanation: "Она шила шёлком и золотом воздух (покров на святые сосуды) с ликами святых для соборного храма."
+            },
+            {
+                question: "Что ответила Феврония на первое весть от Петра (Давида): «Сестра Евфросиния! Приспе время отшествия, но жду тебя»?",
+                options: [
+                    "Попросила подождать, пока она дошьёт лик святого на покрове",
+                    "Сказала, что готова и сейчас же испустит дух",
+                    "Ответила, чтобы он отходил первым",
+                    "Просила отложить час кончины на три дня"
+                ],
+                correct: 0,
+                explanation: "Феврония ответила: «Подожди, господин, пока дошью покров для святой церкви»."
+            },
+            {
+                question: "Как именно Феврония завершила своё рукоделие перед тем, как предать душу Богу вместе с Петром?",
+                options: [
+                    "Она не успела вышить лик последнего святого, вткнула иглу, обмотала нить и отправила весть о готовности",
+                    "Она дошила всё до единого стежка и сложила покров",
+                    "Она передала иглу монастырской послушнице",
+                    "Она отрезала золото ножницами и благословила образ"
+                ],
+                correct: 0,
+                explanation: "Когда Пётр прислал весть в третий раз, она закончила одежду святого, оставив невышитой лишь литву, вткнула иголку и преставилась вместе с ним."
+            },
+            {
+                question: "В каком месте завещали похоронить себя Пётр и Феврония?",
+                options: [
+                    "В едином соборном храме в одном каменном гробу с тонкой перегородкой посредине",
+                    "В разных монастырях, где принимали постриг",
+                    "В родном селе Ласково под древним дубом",
+                    " В усыпальнице Муромских князей в загородном тереме"
+                ],
+                correct: 0,
+                explanation: "Они повелели вытесать гроб из одного камня с перегородкой и положить их вместе в соборной церкви Рождества Богородицы."
+            },
+            {
+                question: "Где положили тела святых люди вопреки их завещанию сразу после их кончины?",
+                options: [
+                    "Петра — в соборной церкви внутри города, а Февронию — за городом в женском монастыре",
+                    "Похоронили в одном гробу, но в разных усыпальницах",
+                    "Положили обоих в загородном мужском монастыре",
+                    "Оставили в их монашеских кельях на три дня"
+                ],
+                correct: 0,
+                explanation: "Люди посчитали нечестивым положить монахов в один гроб и положили Петра у собора, а Февронию — за городом в Воздвиженском монастыре."
+            },
+            {
+                question: "Что обнаружили жители Мурома на следующее утро после того, как разделили тела святых?",
+                options: [
+                    "Их отдельные гробы пустовали, а тела оказались лежащими вместе в общем каменном гробу",
+                    "Гроб Февронии озарился неземным светом",
+                    "Тела святых исчезли и не были найдены",
+                    "Каменный гроб запечатался сам собой"
+                ],
+                correct: 0,
+                explanation: "Наутро люди увидели, что отдельные гробы пусты, а святые тела Петра и Февронии опять покоятся вместе в едином каменном гробе."
+            },
+            {
+                question: "Сколько раз люди пытались разлучить тела Петра и Февронии после их смерти?",
+                options: [
+                    "Дважды разносили по разным храмам, но они снова чудесно оказывались вместе",
+                    "Трижды пытались похоронить в разных городах",
+                    "Четыре раза разносили гробы",
+                    "Лишь один раз, после чего смирились"
+                ],
+                correct: 0,
+                explanation: "Люди пытались разлучить их два раза, но после повторного чуда не дерзнули касаться их святых тел и похоронили вместе."
+            },
+            {
+                question: "Какое фольклорное/сказочное оружие фигурирует в произведении, подчеркивающее его синтез с житийным жанром?",
+                options: [
+                    "Агриков меч",
+                    "Меч-кладенец",
+                    "Шапка-невидимка",
+                    "Каленые стрелы Перуна"
+                ],
+                correct: 0,
+                explanation: "В повести используется мотив волшебного Агрикова меча, что демонстрирует уникальное переплетение фольклорной сказки и христианского жития."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            answered = false;
+            const q = questions[currentQuestion];
+            
+            // Auto scroll to top for mobile screens
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            document.getElementById('question-number').innerText = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
+            document.getElementById('current-score').innerText = score;
+            document.getElementById('progress-bar').style.width = `${((currentQuestion) / questions.length) * 100}%`;
+            
+            document.getElementById('question-text').innerText = q.question;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            document.getElementById('explanation-box').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3.5 sm:p-4 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 active:scale-[0.98] border border-slate-700 transition-all font-medium text-xs sm:text-sm text-slate-200 flex items-start space-x-2.5 sm:space-x-3";
+                btn.onclick = () => selectOption(idx, btn);
+                
+                const letterSpan = document.createElement('span');
+                letterSpan.className = "text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:py-1 bg-slate-900 rounded text-amber-400 mt-0.5 border border-slate-700 shrink-0";
+                letterSpan.innerText = String.fromCharCode(65 + idx);
+
+                const textSpan = document.createElement('span');
+                textSpan.className = "flex-1 leading-snug";
+                textSpan.innerText = opt;
+
+                btn.appendChild(letterSpan);
+                btn.appendChild(textSpan);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(idx, btn) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQuestion];
+            const optionsBtns = document.getElementById('options-container').children;
+
+            if (idx === q.correct) {
+                score++;
+                btn.classList.add('correct-btn');
+            } else {
+                btn.classList.add('wrong-btn');
+                optionsBtns[q.correct].classList.add('correct-btn');
+            }
+
+            for (let b of optionsBtns) {
+                b.disabled = true;
+                b.classList.remove('active:scale-[0.98]');
+            }
+
+            document.getElementById('current-score').innerText = score;
+            document.getElementById('explanation-text').innerText = q.explanation;
+            document.getElementById('explanation-box').classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('hidden');
+            
+            // Smoothly scroll explanation into view on mobile if needed
+            setTimeout(() => {
+                document.getElementById('explanation-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('final-score').innerText = score;
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('percentage-text').innerText = `Успешность: ${percentage}%`;
+
+            let title = "";
+            let desc = "";
+            let emoji = "🏆";
+
+            if (percentage >= 90) {
+                title = "Титул: Муромский книжник и толкователь";
+                desc = "Блестящий результат! Вы досконально знаете текст первоисточника XVI века, его богословскую глубину и фольклорные загадки.";
+                emoji = "👑";
+            } else if (percentage >= 70) {
+                title = "Титул: Знаток древнерусской словесности";
+                desc = "Отличные знания! Вы уверенно ориентируетесь в сюжете, именах и деталях повести Ермолая-Еразма.";
+                emoji = "📜";
+            } else if (percentage >= 50) {
+                title = "Титул: Внимательный читатель";
+                desc = "Хороший результат, однако некоторые нюансы загадок Февронии и житийных деталей остались упущены.";
+                emoji = "📖";
+            } else {
+                title = "Титул: Ученик-послушник";
+                desc = "Произведение содержит много сложных символов и архаичных деталей. Рекомендуем перечитать оригинал «Повести»!";
+                emoji = "🌱";
+            }
+
+            document.getElementById('result-title').innerText = title;
+            document.getElementById('result-description').innerText = desc;
+            document.getElementById('result-emoji').innerText = emoji;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
